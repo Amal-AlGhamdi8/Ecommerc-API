@@ -10,7 +10,6 @@ const App = () => {
   });
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-
   const fechProducts = async () => {
     const { data } = await axios.get("http://localhost:8080/products");
     // console.log(data.payload);
@@ -23,9 +22,12 @@ const App = () => {
 
   const updateProduct = async () => {
     if (selectedProduct) {
-      await axios.put(`http://localhost:8080/products/${selectedProduct.id}`, newProduct);
+      await axios.put(
+        `http://localhost:8080/products/${selectedProduct.id}`,
+        newProduct
+      );
       fechProducts();
-      setSelectedProduct(null); // Reset selected product after update
+      setSelectedProduct(null);
     }
   };
 
@@ -58,7 +60,7 @@ const App = () => {
   //   });
   // };
 
-  const handleUpdate = (product) => {
+  const handleUpdate = (product: any) => {
     setSelectedProduct(product);
     setNewProduct({
       name: product.name,
@@ -69,14 +71,11 @@ const App = () => {
     event.preventDefault();
 
     if (selectedProduct) {
-      // If a product is selected, update it
       updateProduct();
     } else {
-      // If no product is selected, create a new one
       createProduct(newProduct);
     }
 
-    // Reset form fields
     setNewProduct({
       name: "",
       price: 0,
@@ -102,7 +101,9 @@ const App = () => {
           name="price"
           onChange={handleInputChange}
         />
-        <button type="submit">{selectedProduct ? "Update Product" : "Add Product"}</button>
+        <button type="submit">
+          {selectedProduct ? "Update Product" : "Add Product"}
+        </button>
       </form>
       <section className="products">
         {products.length > 0 &&
