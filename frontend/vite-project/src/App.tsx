@@ -1,33 +1,40 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+}
+
 const App = () => {
-  const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({
+  const [products, setProducts] = useState<Product[]>([]);
+  const [newProduct, setNewProduct] = useState<Product>({
+    id: 0,
     name: "",
     price: 0,
   });
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const fechProducts = async () => {
     const { data } = await axios.get("http://localhost:8080/products");
-    // console.log(data.payload);
     setProducts(data.payload);
   };
   const createProduct = async (newProduct: any) => {
-    try{
-    const response = await axios.post("http://localhost:8080/products", newProduct);
-    console.log(response.data.message);
-   // toast.success(response.data.message);
-    fechProducts();
-
-  }catch (error){
-   // toast.error(error.response.data.message);
-    console.log(error.response.data.message);
-  }
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/products",
+        newProduct
+      );
+      toast.success(response.data.message);
+      fechProducts();
+    } catch (error : any) {
+      toast.error(error.response.data.message);
+    }
   };
 
   const updateProduct = async () => {
@@ -51,14 +58,14 @@ const App = () => {
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewProduct((prevState) => {
+      return { ...prevState, [event.target.name]: event.target.value };
+    });
     // setNewProduct({
     //   ...newProduct,
     //   [event.target.name]: event.target.value,
     // });
 
-    setNewProduct((prevState) => {
-      return { ...prevState, [event.target.name]: event.target.value };
-    });
   };
 
   // const handleFormSubmit = async (event: FormEvent) => {
@@ -72,7 +79,8 @@ const App = () => {
 
   const handleUpdate = (product: any) => {
     setSelectedProduct(product);
-    setNewProduct({
+   setNewProduct({
+      id: product.id,
       name: product.name,
       price: product.price,
     });
@@ -87,15 +95,16 @@ const App = () => {
     }
 
     setNewProduct({
-      name: "",
-      price: 0,
+      id: 0,
+    name: "",
+    price: 0,
     });
   };
 
   return (
     <>
-    <ToastContainer />
       <form action="" onSubmit={handleFormSubmit}>
+        <ToastContainer />
         <label>Product Name:</label>
         <input
           type="text"
