@@ -4,7 +4,7 @@ export const productValidation = [
     check('id').isNumeric().withMessage('product id must be number'),
 ]
 
-const validateCreateProduct = [
+export const validateCreateProduct = [
     check('name')
       .trim()
       .notEmpty()
@@ -17,4 +17,4 @@ const validateCreateProduct = [
       .withMessage('Price is required')
       .isFloat({ min: 1 })
       .withMessage('Price must be a positive number'),
-  ];
+  ]

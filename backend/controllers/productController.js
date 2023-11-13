@@ -17,7 +17,6 @@ export const addProduct = async (req, res) => {
     const newProduct = {
       id: new Date().getTime().toString(),
       name: newProductData.name,
-      description: newProductData.description,
       price: newProductData.price,
     };
     const exisitingProducts = JSON.parse(
@@ -89,7 +88,6 @@ export const updateProduct = async (req, res) => {
     products[productIndex] = {
       ...products[productIndex],
       name: newProductData.name,
-      description: newProductData.description,
       price: newProductData.price,
     };
 
