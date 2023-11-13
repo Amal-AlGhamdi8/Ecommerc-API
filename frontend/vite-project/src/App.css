@@ -1,0 +1,14 @@
+
+.products{
+  padding:0.5rem;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 1rem;
+}
+
+@media screen and (max-with:700px) {
+  .products{
+    grid-template-columns: auto;
+  }
+  
+}
