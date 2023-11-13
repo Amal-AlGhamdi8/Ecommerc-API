@@ -34,7 +34,7 @@
 - etch the products from the server
 - delete product from the server
 
-# improve Full-stack e-commerce app
+# Improve Full-stack e-commerce app
 
 1- Backend (Product CRUD API)
 - Follow MVC Architecture
