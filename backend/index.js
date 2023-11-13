@@ -8,7 +8,7 @@ import productsRoute from "./routes/productsRoute.js";
 
 
 const app = express();
-const port = dev.app.port || 5000;
+const port = dev.app.port || 8080 || 5000;
 
 app.listen(port, () => {
   console.log(`server is running at http://localhost:${port}`);

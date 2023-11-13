@@ -1,5 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+
 import "./App.css";
 
 const App = () => {
@@ -16,8 +18,16 @@ const App = () => {
     setProducts(data.payload);
   };
   const createProduct = async (newProduct: any) => {
-    await axios.post("http://localhost:8080/products", newProduct);
+    try{
+    const response = await axios.post("http://localhost:8080/products", newProduct);
+    console.log(response.data.message);
+   // toast.success(response.data.message);
     fechProducts();
+
+  }catch (error){
+   // toast.error(error.response.data.message);
+    console.log(error.response.data.message);
+  }
   };
 
   const updateProduct = async () => {
@@ -84,6 +94,7 @@ const App = () => {
 
   return (
     <>
+    <ToastContainer />
       <form action="" onSubmit={handleFormSubmit}>
         <label>Product Name:</label>
         <input

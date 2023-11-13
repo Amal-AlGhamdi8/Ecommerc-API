@@ -13,7 +13,7 @@ const router = Router();
 
 router.get("/", getAllProducts); // GET: /products -> get all products
 
-router.post("/", validateCreateProduct , runValidation,  addProduct);
+router.post("/", validateCreateProduct , runValidation, addProduct); //validateCreateProduct , runValidation,
 
 router.get("/:id", productValidation, runValidation,  getSingleProduct); // GET: /products/:id -> get a single product based on id
 
