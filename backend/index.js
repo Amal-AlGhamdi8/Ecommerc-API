@@ -10,6 +10,10 @@ import productsRoute from "./routes/productsRoute.js";
 const app = express();
 const port = dev.app.port || 8080 || 5000;
 
+const url = dev.app.url;
+
+console.log(url);
+
 app.listen(port, () => {
   console.log(`server is running at http://localhost:${port}`);
 });

@@ -5,11 +5,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
+
 interface Product {
   id: number;
   name: string;
   price: number;
 }
+
+const url = "http://localhost:8080";
 
 const App = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -21,13 +24,13 @@ const App = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const fechProducts = async () => {
-    const { data } = await axios.get("http://localhost:8080/products");
+    const { data } = await axios.get(`${url}/products`);
     setProducts(data.payload);
   };
   const createProduct = async (newProduct: any) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/products",
+        `${url}/products`,
         newProduct
       );
       toast.success(response.data.message);
@@ -40,7 +43,7 @@ const App = () => {
   const updateProduct = async () => {
     if (selectedProduct) {
       await axios.put(
-        `http://localhost:8080/products/${selectedProduct.id}`,
+        `${url}/products/${selectedProduct.id}`,
         newProduct
       );
       fechProducts();
@@ -53,7 +56,7 @@ const App = () => {
   }, []);
 
   const handleDelete = async (id: number) => {
-    await axios.delete(`http://localhost:8080/products/${id}`);
+    await axios.delete(`${url}/products/${id}`);
     fechProducts();
   };
 
@@ -130,7 +133,7 @@ const App = () => {
           products.map((product) => (
             <article key={product.id}>
               <h2>{product.name}</h2>
-              <h2>{product.price}</h2>
+              <h2>{product.price} $</h2>
               <button onClick={() => handleDelete(product.id)}>Delete</button>
               <button onClick={() => handleUpdate(product)}>Update</button>
             </article>
