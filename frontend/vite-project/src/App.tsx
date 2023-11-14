@@ -140,7 +140,9 @@ const App = () => {
           ))}
       </section>
     </>
+  
   );
+  document.getElementById('root')
 };
 
 export default App;
